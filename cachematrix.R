@@ -21,8 +21,16 @@
 ## 3.  setinverse = sets the inverse of the matrix
 ## 4.  getinverse = gets the inverse of the matrix
 
+## Note that this has been implemented as specified in the assignment.
+## My preferred way to deal with this would have been for 
+## getinverse() to assess itself whether the result has been cached or not
+## and then calculate if necessary.  This would encapsulate the function
+## in the special "matrix" object without requiring a separate
+## cacheSolve function.
+
 makeCacheMatrix <- function(x = matrix()) {
-    minv <- NULL
+    ## minv stores the inverse; initialise with NULL
+    minv <- NULL    
     set <- function(y) {
         x <<- y
         minv <<- NULL
@@ -36,9 +44,13 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 ## `cacheSolve`: computes the inverse of the special
-## "matrix" returned by `makeCacheMatrix` above. If the inverse has
-## already been calculated (and the matrix has not changed), then the
-## `cachesolve` should retrieve the inverse from the cache.
+## "matrix" returned by `makeCacheMatrix` above. 
+## First if fetches the cached value.
+    ## If this is not NULL, this indicates that the inverse has
+    ## already been calculated (and the matrix has not changed), so we
+    ## return that cached value.
+    ## If this is NULL, then the we call solve() to calculate the inverse
+    ## and then set the cache for future use.
 
 cacheSolve <- function(x, ...) {
     minv <- x$getinverse()
