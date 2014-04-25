@@ -21,13 +21,6 @@
 ## 3.  setinverse = sets the inverse of the matrix
 ## 4.  getinverse = gets the inverse of the matrix
 
-## Note that this has been implemented as specified in the assignment.
-## My preferred way to deal with this would have been for 
-## getinverse() to assess itself whether the result has been cached or not
-## and then calculate if necessary.  This would encapsulate the function
-## in the special "matrix" object without requiring a separate
-## cacheSolve function.
-
 makeCacheMatrix <- function(x = matrix()) {
     ## minv stores the inverse; initialise with NULL
     minv <- NULL    
@@ -63,3 +56,12 @@ cacheSolve <- function(x, ...) {
     x$setinverse(minv)
     minv
 }
+
+## Note that the above has been implemented as specified in the assignment.
+## My preferred way to deal with this would have been for the "special"
+## matrix to contain all necessary functions, and only an externally visible
+## getinverse() function.
+## getinverse() would check its internal cache and re-calculate if necessary. 
+## setinverse() and cacheSolve() would not be necessary.
+## The implementation below mirrors solve(m) with cacheSolve(sm) at the expense
+## of simplicity
